@@ -1,5 +1,6 @@
 package com.generation.blogpessoal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity //transforma a classe/entidade em tabela
 @Table(name = "tb_postagem") //Renomeando a tabela
-public class Postagem {
+public class PostagemModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,22 @@ public class Postagem {
 
     @UpdateTimestamp
     private LocalDateTime data;
+
+    @ManyToOne //muitos para um
+    @JsonIgnoreProperties("postagem")
+    private TemaModel tema;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public TemaModel getTema() {
+        return tema;
+    }
+
+    public void setTema(TemaModel tema) {
+        this.tema = tema;
+    }
 
     public long getId() {
         return id;
