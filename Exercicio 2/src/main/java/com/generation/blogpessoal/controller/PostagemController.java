@@ -2,6 +2,7 @@ package com.generation.blogpessoal.controller;
 
 import com.generation.blogpessoal.model.PostagemModel;
 import com.generation.blogpessoal.repository.PostagemRepository;
+import com.generation.blogpessoal.repository.TemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ public class PostagemController {
 
     @Autowired
     private PostagemRepository postagemRepository;
+    @Autowired
+    private TemaRepository temaRepository;
 
     @GetMapping
     public ResponseEntity<List<PostagemModel>> getAll() {
@@ -39,17 +42,22 @@ public class PostagemController {
 
     @PostMapping
     public ResponseEntity<PostagemModel>post(@Valid @RequestBody PostagemModel postagemModel) {
+        if (temaRepository.existsById(postagemModel.getTema().getId()))
         return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagemModel));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 
 
      @PutMapping
-     public ResponseEntity<PostagemModel> put(@Valid@RequestBody PostagemModel postagemModel){
-         return postagemRepository.findById(postagemModel.getId())
-                 .map(resposta -> ResponseEntity.status(HttpStatus.OK)
-                         .body(postagemRepository.save(postagemModel)))
-                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+     public ResponseEntity<PostagemModel> put(@Valid @RequestBody PostagemModel postagemModel){
+        if (postagemRepository.existsById(postagemModel.getId())){
+            if (temaRepository.existsById(postagemModel.getTema().getId()))
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(postagemRepository.save(postagemModel));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         }
 
