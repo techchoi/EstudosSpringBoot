@@ -19,7 +19,7 @@ public class TemaModel {
     private String descricao;
 
 
-    @OneToMany(mappedBy = "tema" cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tema",cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("tema")
     private List<PostagemModel> postagem;
 
