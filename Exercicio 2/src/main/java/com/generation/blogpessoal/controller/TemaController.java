@@ -48,7 +48,7 @@ public class TemaController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
         Optional<TemaModel> temaModel = temaRepository.findById(id);
         if(temaModel.isEmpty())
