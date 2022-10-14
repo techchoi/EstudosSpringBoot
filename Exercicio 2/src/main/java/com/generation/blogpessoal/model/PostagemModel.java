@@ -32,8 +32,9 @@ public class PostagemModel {
     private TemaModel tema;
 
     @ManyToOne
+    @JoinColumn(name = "ususario_ID")
     @JsonIgnoreProperties("postagem")
-    private Ususario ususario;
+    private Usuario ususario;
 
     public void setId(Long id) {
         this.id = id;
@@ -79,11 +80,11 @@ public class PostagemModel {
         this.data = data;
     }
 
-    public Ususario getUsusario() {
+    public Usuario getUsusario() {
         return ususario;
     }
 
-    public void setUsusario(Ususario ususario) {
+    public void setUsusario(Usuario ususario) {
         this.ususario = ususario;
     }
 }

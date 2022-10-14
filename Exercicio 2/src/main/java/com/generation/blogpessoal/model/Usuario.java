@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_usuarios")
-public class UsuarioModel {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
