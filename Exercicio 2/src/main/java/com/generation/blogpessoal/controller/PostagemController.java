@@ -15,7 +15,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/postagens")
-@CrossOrigin(origins = "*", allowedHeaders = "*") //origem de acesso "*" = tudo, para não ficar limitado na porta 8080. Aqui é uma estrutura de framework
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+//origem de acesso "*" = tudo, para não ficar limitado na porta 8080. Aqui é uma estrutura de framework
 public class PostagemController {
 
     @Autowired
@@ -36,22 +37,21 @@ public class PostagemController {
 
 
     @GetMapping("/titulo/{titulo}")
-    public ResponseEntity<List<PostagemModel>> getByTitulo(@PathVariable String titulo){
+    public ResponseEntity<List<PostagemModel>> getByTitulo(@PathVariable String titulo) {
         return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
-}
+    }
 
     @PostMapping
-    public ResponseEntity<PostagemModel>post(@Valid @RequestBody PostagemModel postagemModel) {
+    public ResponseEntity<PostagemModel> post(@Valid @RequestBody PostagemModel postagemModel) {
         if (temaRepository.existsById(postagemModel.getTema().getId()))
-        return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagemModel));
+            return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagemModel));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 
-
-     @PutMapping
-     public ResponseEntity<PostagemModel> put(@Valid @RequestBody PostagemModel postagemModel){
-        if (postagemRepository.existsById(postagemModel.getId())){
+    @PutMapping
+    public ResponseEntity<PostagemModel> put(@Valid @RequestBody PostagemModel postagemModel) {
+        if (postagemRepository.existsById(postagemModel.getId())) {
             if (temaRepository.existsById(postagemModel.getTema().getId()))
                 return ResponseEntity.status(HttpStatus.OK)
                         .body(postagemRepository.save(postagemModel));
@@ -59,14 +59,14 @@ public class PostagemController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
-        }
+    }
 
-        @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-            Optional<PostagemModel> postagem = postagemRepository.findById(id);
-            if(postagem.isEmpty())
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            postagemRepository.deleteById(id);
-        }
+    public void delete(@PathVariable Long id) {
+        Optional<PostagemModel> postagem = postagemRepository.findById(id);
+        if (postagem.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        postagemRepository.deleteById(id);
+    }
 }

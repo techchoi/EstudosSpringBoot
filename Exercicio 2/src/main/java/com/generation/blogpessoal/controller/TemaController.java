@@ -20,27 +20,29 @@ public class TemaController {
     private TemaRepository temaRepository;
 
     @GetMapping
-    public ResponseEntity<List<TemaModel>> getAll(){
+    public ResponseEntity<List<TemaModel>> getAll() {
         return ResponseEntity.ok(temaRepository.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TemaModel> getById(@PathVariable Long id){
+    public ResponseEntity<TemaModel> getById(@PathVariable Long id) {
         return temaRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/descricao/{descricao}")
-    public ResponseEntity<List<TemaModel>> getByTitle(@PathVariable String descricao){
+    public ResponseEntity<List<TemaModel>> getByTitle(@PathVariable String descricao) {
         return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
     }
+
     @PostMapping
-    public ResponseEntity<TemaModel> post(@Valid @RequestBody TemaModel temaModel){
+    public ResponseEntity<TemaModel> post(@Valid @RequestBody TemaModel temaModel) {
         return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(temaModel));
     }
+
     @PutMapping
-    public ResponseEntity<TemaModel> put(@Valid @RequestBody TemaModel temaModel){
+    public ResponseEntity<TemaModel> put(@Valid @RequestBody TemaModel temaModel) {
         return temaRepository.findById(temaModel.getId())
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
                         .body(temaRepository.save(temaModel)))
@@ -49,9 +51,9 @@ public class TemaController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public void delete(@PathVariable Long id) {
         Optional<TemaModel> temaModel = temaRepository.findById(id);
-        if(temaModel.isEmpty())
+        if (temaModel.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         temaRepository.deleteById(id);
 

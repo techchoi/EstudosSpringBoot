@@ -47,8 +47,8 @@ public class UsuarioService {
                 usuarioLogin.get().setId(usuario.get().getId());
                 usuarioLogin.get().setNome(usuario.get().getNome());
                 usuarioLogin.get().setFoto(usuario.get().getFoto());
-                usuarioLogin.get().setToken(
-                        gerarBasicToken(usuarioLogin.get().getUsuario(),
+                usuarioLogin.get().
+                        setToken(gerarBasicToken(usuarioLogin.get().getUsuario(),
                                 usuarioLogin.get().getSenha()));
                 usuarioLogin.get().setSenha(usuario.get().getSenha());
                 return usuarioLogin;
@@ -62,8 +62,7 @@ public class UsuarioService {
         String senhaEncoder = encoder.encode(senha);
         return senhaEncoder;
     }
-    private boolean compararSenhas(String senhaDigitada,
-                                   String senhaBanco) {
+    private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.matches(senhaDigitada, senhaBanco);
     }

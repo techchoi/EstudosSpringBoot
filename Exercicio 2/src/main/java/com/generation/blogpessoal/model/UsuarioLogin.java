@@ -1,5 +1,9 @@
 package com.generation.blogpessoal.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
 public class UsuarioLogin {
 
     private Long id;
