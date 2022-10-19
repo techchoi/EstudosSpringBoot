@@ -24,8 +24,8 @@ public class UsuarioService {
     }
     public Optional<Usuario> atualizarUsuario(Usuario usuario) {
         if (usuarioRepository.findById(usuario.getId()).isPresent()) {
-            Optional<Usuario> buscaUsuario = usuarioRepository.
-                    findByUsuario(usuario.getUsuario());
+            Optional<Usuario> buscaUsuario = usuarioRepository
+                    .findByUsuario(usuario.getUsuario());
             if (buscaUsuario.isPresent()) {
                 if (buscaUsuario.get().getId() != usuario.getId())
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

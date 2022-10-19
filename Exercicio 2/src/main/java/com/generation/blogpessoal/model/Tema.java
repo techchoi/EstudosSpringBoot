@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_temas")
-public class TemaModel {
+public class Tema {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +20,14 @@ public class TemaModel {
 
     @OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("tema")
-    private List<PostagemModel> postagem;
+    private List<Postagem> postagem;
 
-    public List<PostagemModel> getPostagem() {
+
+    public List<Postagem> getPostagem() {
         return postagem;
     }
 
-    public void setPostagem(List<PostagemModel> postagem) {
+    public void setPostagem(List<Postagem> postagem) {
         this.postagem = postagem;
     }
 

@@ -2,6 +2,7 @@ package com.generation.blogpessoal.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,13 +19,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String nome;
 
-    @Size(max = 5000)
+    //@Size(max = 5000)
     private String foto;
 
-    @NotNull
+    @Schema(example = "email@email.com.br")
+    @NotBlank
     @Email
     private String usuario;
 
@@ -34,7 +36,7 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("usuario")
-    private List<PostagemModel> postagemModelList;
+    private List<Postagem> postagem;
 
 
     public Usuario(Long id, String nome, String foto, String usuario, String senha) {
@@ -88,11 +90,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public List<PostagemModel> getPostagemModelList() {
-        return postagemModelList;
+    public List<Postagem> getPostagem() {
+        return postagem;
     }
 
-    public void setPostagemModelList(List<PostagemModel> postagemModelList) {
-        this.postagemModelList = postagemModelList;
+    public void setPostagem(List<Postagem> postagem) {
+
+        this.postagem = postagem;
     }
 }

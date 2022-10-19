@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity //transforma a classe/entidade em tabela
 @Table(name = "tb_postagem") //Renomeando a tabela
-public class PostagemModel {
+public class Postagem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,10 @@ public class PostagemModel {
 
     @ManyToOne //muitos para um
     @JsonIgnoreProperties("postagem")
-    private TemaModel tema;
+    private Tema tema;
 
     @ManyToOne
-    //@JoinColumn(name = "ususario_ID")
+    @JoinColumn(name = "ususario_ID")
     @JsonIgnoreProperties("postagem")
     private Usuario ususario;
 
@@ -40,11 +40,11 @@ public class PostagemModel {
         this.id = id;
     }
 
-    public TemaModel getTema() {
+    public Tema getTema() {
         return tema;
     }
 
-    public void setTema(TemaModel tema) {
+    public void setTema(Tema tema) {
         this.tema = tema;
     }
 

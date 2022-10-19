@@ -39,6 +39,7 @@ public class UsuarioControllerTest {
     @Order(1)
     @DisplayName("Cadastrar Um Usuário")
     public void deveCriarUmUsuario(){
+
         HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, "Paulo Antunes","https:--i.imgur.com/FETvs20.jpg","paulo_antunes@email.com.br","13465278"));
         ResponseEntity<Usuario> resposta = testRestTemplate
                 .exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
